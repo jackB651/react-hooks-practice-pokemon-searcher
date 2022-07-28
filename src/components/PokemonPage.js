@@ -13,15 +13,25 @@ function PokemonPage() {
     .then(respObj=>setPokemon(respObj))
   },[])
 
+  const [pokeName, setPokeName] = useState("") 
+
+  const filterPokemon = pokemon.filter((obj)=>{
+    return obj.name.toLowerCase().includes(pokeName.toLowerCase())
+  })
+
+  function findPokemon(nameInput){
+    return setPokeName(nameInput)
+  } 
+
   return (
     <Container>
       <h1>Pokemon Searcher</h1>
       <br />
       <PokemonForm />
       <br />
-      <Search />
+      <Search findPokemon = {findPokemon}/>
       <br />
-      <PokemonCollection pokemon = {pokemon}/>
+      <PokemonCollection pokemon = {filterPokemon}/>
     </Container>
   );
 }
